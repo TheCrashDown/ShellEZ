@@ -12,12 +12,12 @@ class ErrorTypes:
     Enum class for error types
     '''
     SYNTAX_ERROR = 1
-    FILE_NOT_EXIST_ERROR = 2
-    FOLDER_NOT_EXIST_ERROR = 3
-    FILE_ALREADY_EXISTS = 4
-    FOLDER_ALREADY_EXISTS = 5
+    FILE_NOT_EXISTS_ERROR = 2
+    FOLDER_NOT_EXISTS_ERROR = 3
+    FILE_ALREADY_EXISTS_ERROR = 4
+    FOLDER_ALREADY_EXISTS_ERROR = 5
     FOLDER_NOT_EMPTY_ERROR = 6
-    PATH_NOT_EXISTS = 7
+    PATH_NOT_EXISTS_ERROR = 7
 
 
 class Messages:
@@ -28,17 +28,17 @@ class Messages:
     specialErrorMessages = {ErrorTypes.SYNTAX_ERROR : 
                                 ('Invalid command syntax\n'
                                  + 'Use help to get list of commands'),
-                            ErrorTypes.FILE_NOT_EXIST_ERROR : 
+                            ErrorTypes.FILE_NOT_EXISTS_ERROR : 
                                 'File with such name does not exist',
-                            ErrorTypes.FOLDER_NOT_EXIST_ERROR : 
+                            ErrorTypes.FOLDER_NOT_EXISTS_ERROR : 
                                 'Folder with such name does not exist',
                             ErrorTypes.FOLDER_NOT_EMPTY_ERROR : 
                                 'This folder is not empty',
-                            ErrorTypes.FILE_ALREADY_EXISTS :
+                            ErrorTypes.FILE_ALREADY_EXISTS_ERROR :
                                 'File with the same name already exists',
-                            ErrorTypes.FOLDER_ALREADY_EXISTS :
+                            ErrorTypes.FOLDER_ALREADY_EXISTS_ERROR :
                                 'Directory with the same name already exists',
-                            ErrorTypes.PATH_NOT_EXISTS : 
+                            ErrorTypes.PATH_NOT_EXISTS_ERROR : 
                                 'Such path does not exists'}
 
     greeting = ('Hello there! This is ShellEZ v1.0\n'
@@ -72,13 +72,13 @@ class Cmd:
 
     def makeDir(path):
         if os.path.exists(path):
-            printErrorMessage(ErrorTypes.FOLDER_ALREADY_EXISTS)
+            printErrorMessage(ErrorTypes.FOLDER_ALREADY_EXISTS_ERROR)
             return
         os.mkdir(path)
 
     def changeDir(path):
         if not os.path.exists(path):
-            printErrorMessage(ErrorTypes.PATH_NOT_EXISTS)
+            printErrorMessage(ErrorTypes.PATH_NOT_EXISTS_ERROR)
             return
         os.chdir(path)
 
@@ -94,13 +94,13 @@ class Cmd:
 
     def removeFile(path):
         if (not os.path.exists(path)) or (not os.path.isfile(path)):
-            printErrorMessage(ErrorTypes.FILE_NOT_EXISTS)
+            printErrorMessage(ErrorTypes.FILE_NOT_EXISTS_ERROR)
             return
         os.remove(path)
 
     def removeDir(path):
         if (not os.path.exists(path)) or (not os.path.isdir(path)):
-            printErrorMessage(ErrorTypes.FOLDER_NOT_EXISTS)
+            printErrorMessage(ErrorTypes.FOLDER_NOT_EXISTS_ERROR)
             return
         if len(os.listdir(path)) > 0:
             printErrorMessage(ErrorTypes.FOLDER_NOT_EMPTY_ERROR)
@@ -118,11 +118,11 @@ class Cmd:
         #print(dest)
 
         if not os.path.exists(source):
-            printErrorMessage(ErrorTypes.FILE_NOT_EXISTS)
+            printErrorMessage(ErrorTypes.FILE_NOT_EXISTS_ERROR)
             return
 
         if not os.path.exists(dest):
-            printErrorMessage(ErrorTypes.PATH_NOT_EXISTS)
+            printErrorMessage(ErrorTypes.PATH_NOT_EXISTS_ERROR)
             return
 
         shutil.copy(source, dest)
