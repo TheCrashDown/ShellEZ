@@ -3,10 +3,12 @@ import shutil
 from enum import Enum
 from res import ErrorTypes, Messages
 
+
 class Help:
     listCommands = []
     parseCommands = ['ls', 'pwd', 'cd ', 'cp ', 'help',
                      'mv ', 'rm ', 'rmdir ', 'mkdir ']
+
 
 class FileManagerException(Exception):
     '''
@@ -16,6 +18,7 @@ class FileManagerException(Exception):
     def __init__(self, errorType):
         print(Messages.stdErrorMessage)
         print(Messages.specialErrorMessages[errorType])
+
 
 def parse(a):
     '''
@@ -33,6 +36,7 @@ def parse(a):
         if a.startswith(cmd):
             return cmd, a[len(cmd):]
     return False
+
 
 class Cmd:
     '''
@@ -111,7 +115,7 @@ class Cmd:
                       }
 
 if __name__ == '__main__':
-    
+
     print(Messages.greeting)
 
     while True:
