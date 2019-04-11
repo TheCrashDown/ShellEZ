@@ -1,7 +1,8 @@
 from enum import Enum
 
+APP_VERSION = 1.3
 
-class ErrorTypes:
+class ErrorTypes(Enum):
     '''
     Enum class for error types
     '''
@@ -21,7 +22,7 @@ class Messages:
     stdErrorMessage = 'OOops...\nSomething went wrong:'
     specialErrorMessages = {ErrorTypes.SYNTAX_ERROR:
                             ('Invalid command syntax\n'
-                             + 'Use help to get list of commands'),
+                             'Use help to get list of commands'),
                             ErrorTypes.FILE_NOT_EXISTS_ERROR:
                                 'File with such name does not exist',
                             ErrorTypes.FOLDER_NOT_EXISTS_ERROR:
@@ -35,5 +36,5 @@ class Messages:
                             ErrorTypes.PATH_NOT_EXISTS_ERROR:
                                 'Such path does not exists'}
 
-    greeting = ('Hello there! This is ShellEZ v1.0\n'
-                + 'Type help to get more information')
+    greeting = ('Hello there! This is ShellEZ v' + str(APP_VERSION) + '\n'
+                'Type help to get more information')
