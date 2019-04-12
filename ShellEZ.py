@@ -6,7 +6,7 @@ from res import ErrorTypes, Messages
 class Help:
     listCommands = []
     parseCommands = ['ls', 'pwd', 'cd ', 'cp ', 'help',
-                     'mv ', 'rm ', 'rmdir ', 'mkdir ']
+                     'mv ', 'rm ', 'rmdir ', 'mkdir ', 'exit']
 
 
 class FileManagerException(Exception):
@@ -144,6 +144,14 @@ class Cmd:
         Cmd.copyFile(arg)
         Cmd.removeFile(source)
 
+    def exitShell(*args):
+        '''
+        Exit ShellEZ
+
+        Syntax : exit
+        '''
+        raise SystemExit(0)
+
     executeCommand = {'mkdir': makeDir,
                       'cd': changeDir,
                       'help': help,
@@ -153,6 +161,7 @@ class Cmd:
                       'ls': getListDir,
                       'cp': copyFile,
                       'mv': moveFile,
+                      'exit' : exitShell,
                       }
 
 
