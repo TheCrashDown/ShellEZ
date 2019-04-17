@@ -46,29 +46,43 @@ class Cmd:
 
         Syntax : help
         '''
+        if args[0] != '' or len(args) > 1:
+            raise FileManagerException(ErrorTypes.SYNTAX_ERROR)
         print('\n')
         for cmd in sorted(Cmd.executeCommand):
             print('{: <8}{}'.format(cmd.upper(),
                                     Cmd.executeCommand[cmd].__doc__.lstrip()))
         print('\n')
 
-    def makeDir(path, *args):
+    def makeDir(*args):
         '''
         Create new directory using absulute or relative path
 
         Syntax : mkdir PATH
         '''
+
+        if len(args) != 1:
+            raise FileManagerException(ErrorTypes.SYNTAX_ERROR)
+
+        path = args[0]
+
         if os.path.exists(path):
             raise FileManagerException(
                 ErrorTypes.FOLDER_ALREADY_EXISTS_ERROR)
         os.mkdir(path)
 
-    def changeDir(path, *args):
+    def changeDir(*args):
         '''
         Switch to another directory using absulute or relative path
 
         Syntax : cd PATH
         '''
+
+        if len(args) != 1:
+            raise FileManagerException(ErrorTypes.SYNTAX_ERROR)
+
+        path = args[0]
+
         if not os.path.exists(path):
             raise FileManagerException(ErrorTypes.PATH_NOT_EXISTS_ERROR)
         os.chdir(path)
@@ -79,6 +93,10 @@ class Cmd:
 
         Syntax : pwd
         '''
+
+        if args[0] != '' or len(args) > 1:
+            raise FileManagerException(ErrorTypes.SYNTAX_ERROR)
+
         print(os.getcwd())
 
     def getListDir(*args):
@@ -87,6 +105,10 @@ class Cmd:
 
         Syntax : ls
         '''
+
+        if args[0] != '' or len(args) > 1:
+            raise FileManagerException(ErrorTypes.SYNTAX_ERROR)
+
         print('\n')
         for dir in os.listdir(os.getcwd()):
             if os.path.isfile(dir):
@@ -95,34 +117,52 @@ class Cmd:
                 print('{:.<64}{}'.format(dir, 'folder'))
         print('\n')
 
-    def removeFile(path, *args):
+    def removeFile(*args):
         '''
         Remove file using absulute or relative path
 
         Syntax : rm PATH
         '''
+
+        if len(args) != 1:
+            raise FileManagerException(ErrorTypes.SYNTAX_ERROR)
+
+        path = args[0]
+
         if (not os.path.exists(path)) or (not os.path.isfile(path)):
             raise FileManagerException(ErrorTypes.FILE_NOT_EXISTS_ERROR)
         os.remove(path)
 
-    def removeDir(path, *args):
+    def removeDir(*args):
         '''
         Remove directory using absulute or relative path
 
         Syntax : rmdir PATH
         '''
+
+        if len(args) != 1:
+            raise FileManagerException(ErrorTypes.SYNTAX_ERROR)
+
+        path = args[0]
+
         if (not os.path.exists(path)) or (not os.path.isdir(path)):
             raise FileManagerException(ErrorTypes.FOLDER_NOT_EXISTS_ERROR)
         if len(os.listdir(path)) > 0:
             raise FileManagerException(ErrorTypes.FOLDER_NOT_EMPTY_ERROR)
         os.rmdir(path)
 
-    def copyFile(arg, *args):
+    def copyFile(*args):
         '''
         Copy SOURCE file to DEST using absulute or relative path
 
         Syntax : cp SOURCE DEST
         '''
+
+        if len(args) != 1:
+            raise FileManagerException(ErrorTypes.SYNTAX_ERROR)
+
+        path = args[0]
+
         if ' ' not in arg:
             raise FileManagerException(ErrorTypes.SYNTAX_ERROR)
         source, dest = arg.split(' ')
@@ -135,12 +175,18 @@ class Cmd:
 
         shutil.copy(source, dest)
 
-    def moveFile(arg, *args):
+    def moveFile(*args):
         '''
         Move SOURCE file to DEST using absulute or relative path
 
         Syntax : mv SOURCE DEST
         '''
+
+        if len(args) != 1:
+            raise FileManagerException(ErrorTypes.SYNTAX_ERROR)
+
+        path = args[0]
+
         Cmd.copyFile(arg)
         Cmd.removeFile(source)
 
@@ -150,6 +196,10 @@ class Cmd:
 
         Syntax : exit
         '''
+
+        if args[0] != '' or len(args) > 1:
+            raise FileManagerException(ErrorTypes.SYNTAX_ERROR)
+
         raise SystemExit(0)
 
     executeCommand = {'mkdir': makeDir,
@@ -161,7 +211,7 @@ class Cmd:
                       'ls': getListDir,
                       'cp': copyFile,
                       'mv': moveFile,
-                      'exit' : exitShell,
+                      'exit': exitShell,
                       }
 
 

@@ -1,6 +1,6 @@
 from enum import Enum
 
-APP_VERSION = 1.3
+APP_VERSION = 1.3.2
 
 class ErrorTypes(Enum):
     '''
