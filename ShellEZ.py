@@ -46,8 +46,10 @@ class Cmd:
 
         Syntax : help
         '''
+        
         if args[0] != '' or len(args) > 1:
             raise FileManagerException(ErrorTypes.SYNTAX_ERROR)
+
         print('\n')
         for cmd in sorted(Cmd.executeCommand):
             print('{: <8}{}'.format(cmd.upper(),
