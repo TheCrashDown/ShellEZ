@@ -1,6 +1,6 @@
 # ShellEZ
 
-Simple shell/cmd emulator
+Simple shell/cmd python emulator
 
 ## Execution
 
