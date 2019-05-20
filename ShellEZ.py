@@ -13,7 +13,6 @@ class FileManagerException(Exception):
     '''
     Custom exception class 
     '''
-
     def __init__(self, errorType):
         self.errorType = errorType
 
